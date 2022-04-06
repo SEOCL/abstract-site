@@ -2,6 +2,7 @@ class Site {
     constructor(){
         this.boards = []
     }
+
     //constructor() =생성자 함수. 사이트 내에서 boards가 생기는 걸 예약하는 걸
     // 생성한다.
 
@@ -12,13 +13,15 @@ class Site {
     // 객체가 된다.
 
     // 즉, 이미 위의 코드로 site는 무언가를 n 개 이상 생성한다.
+
+
     addBoard(board) {
         for (let i = 0; i < this.boards.length; i++) {
             if (this.boards[i].name === board.name){
                 throw Error();
             }
         }
-        board.check = true; // ? 
+        board.myboard = true; // ? 
         this.boards.push(board); //이름이 다른 보드는 push로 추가 가능. 
     }
     //spec의 Site에서 생성된 board를 조회 -> addBoard에 '공지사항' 인 보드를 추가했다. 
@@ -40,7 +43,7 @@ class Board {
             throw new Error();
         }
         this.name = boardName;
-        this.check = false;
+        this.myboard = false;
         this.article = [];
     };
 
@@ -48,10 +51,11 @@ class Board {
         article.createdDate = new Date().toISOString();
         article.id = `${this.name}-${Math.random()}`;
 
-        if (this.check === false) {
+        if (this.myboard === false) {
             throw new Error();
         }
-        article.check = true;
+
+        article.myboard = true;
         this.article.push(article);
     };
 
@@ -74,7 +78,7 @@ class Article {
         this.content = content
         this.author = author
         this.comment = []; 
-        this.check = false;
+        this.myboard = false;
     };
 
     reply(comment) {
@@ -84,7 +88,7 @@ class Article {
         comment.createdDate = new Date().toISOString();
         comment.id = `${this.name}-${Math.random()}`;
 
-        if (this.check === false) {
+        if (this.myboard === false) {
             throw new Error();
         }
 
@@ -94,7 +98,6 @@ class Article {
     getAllComments() {
         return this.comment;
     };
-
 }
 
 class Comment {
